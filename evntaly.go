@@ -9,6 +9,7 @@ import (
 	"net/http"
 )
 
+// EvntalySDK is the main struct for the Evntaly SDK.
 type EvntalySDK struct {
 	BaseURL         string
 	DeveloperSecret string
