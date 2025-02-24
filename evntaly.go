@@ -17,6 +17,10 @@ type EvntalySDK struct {
 	TrackingEnabled bool
 }
 
+type EventUser struct {
+	ID string `json:"id"`
+}
+
 type Event struct {
 	Title         string      `json:"title"`
 	Description   string      `json:"description"`
@@ -26,13 +30,11 @@ type Event struct {
 	Notify        bool        `json:"notify"`
 	Icon          string      `json:"icon"`
 	ApplyRuleOnly bool        `json:"apply_rule_only"`
-	User          struct {
-		ID string `json:"id"`
-	} `json:"user"`
-	Type      string `json:"type"`
-	SessionID string `json:"sessionID"`
-	Feature   string `json:"feature"`
-	Topic     string `json:"topic"`
+	User          EventUser   `json:"user"`
+	Type          string      `json:"type"`
+	SessionID     string      `json:"sessionID"`
+	Feature       string      `json:"feature"`
+	Topic         string      `json:"topic"`
 }
 
 type User struct {
