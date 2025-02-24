@@ -18,13 +18,15 @@ type EvntalySDK struct {
 }
 
 type Event struct {
-	Title       string      `json:"title"`
-	Description string      `json:"description"`
-	Data        interface{} `json:"data"`
-	Tags        []string    `json:"tags"`
-	Notify      bool        `json:"notify"`
-	Icon        string      `json:"icon"`
-	User        struct {
+	Title         string      `json:"title"`
+	Description   string      `json:"description"`
+	Message       string      `json:"message"`
+	Data          interface{} `json:"data"`
+	Tags          []string    `json:"tags"`
+	Notify        bool        `json:"notify"`
+	Icon          string      `json:"icon"`
+	ApplyRuleOnly bool        `json:"apply_rule_only"`
+	User          struct {
 		ID string `json:"id"`
 	} `json:"user"`
 	Type      string `json:"type"`
