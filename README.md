@@ -73,7 +73,7 @@ To track an event:
      Notify:     true,
      Icon:       "💰",
      ApplyRuleOnly: false,
-     User:       evntaly.User{ID: "12345"},
+     User:       evntaly.EventUser{ID: "12345"},
      Type:       "Transaction",
      SessionID:  "20750ebc-dabf-4fd4-9498-443bf30d6095_bsd",
      Feature:    "Checkout",
