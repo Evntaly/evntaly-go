@@ -47,7 +47,7 @@ type User struct {
 
 func NewEvntalySDK(developerSecret, projectToken string) *EvntalySDK {
 	return &EvntalySDK{
-		BaseURL:         "https://evntaly.com/prod",
+		BaseURL:         "https://app.evntaly.com/prod",
 		DeveloperSecret: developerSecret,
 		ProjectToken:    projectToken,
 		TrackingEnabled: true,

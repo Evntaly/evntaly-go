@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://evntaly.com/assets/images/app_cover.png" alt="Evntaly Cover" width="100%">
+  <img src="https://cdn.evntaly.com/Resources/og.png" alt="Evntaly Cover" width="100%">
 </p>
 
 <h3 align="center">Evntaly</h3>
