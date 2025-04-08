@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 )
 
 // EvntalySDK is the main struct for the Evntaly SDK.
@@ -15,6 +16,7 @@ type EvntalySDK struct {
 	DeveloperSecret string
 	ProjectToken    string
 	TrackingEnabled bool
+	client          *http.Client
 }
 
 type EventUser struct {
@@ -51,7 +53,14 @@ func NewEvntalySDK(developerSecret, projectToken string) *EvntalySDK {
 		DeveloperSecret: developerSecret,
 		ProjectToken:    projectToken,
 		TrackingEnabled: true,
+		client:          &http.Client{},
 	}
+}
+
+// SetRequestTimeout Allows changing the request timeout for the SDK.
+// If not called, default will be used (no timeout).
+func (sdk *EvntalySDK) SetRequestTimeout(timeout time.Duration) {
+	sdk.client.Timeout = timeout
 }
 
 func (sdk *EvntalySDK) CheckLimit() (bool, error) {
@@ -64,8 +73,7 @@ func (sdk *EvntalySDK) CheckLimit() (bool, error) {
 
 	req.Header.Set("Content-Type", "application/json")
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := sdk.client.Do(req)
 	if err != nil {
 		return false, err
 	}
@@ -117,8 +125,7 @@ func (sdk *EvntalySDK) Track(event Event) error {
 	req.Header.Set("secret", sdk.DeveloperSecret)
 	req.Header.Set("pat", sdk.ProjectToken)
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := sdk.client.Do(req)
 	if err != nil {
 		return err
 	}
@@ -148,8 +155,7 @@ func (sdk *EvntalySDK) IdentifyUser(user User) error {
 	req.Header.Set("secret", sdk.DeveloperSecret)
 	req.Header.Set("pat", sdk.ProjectToken)
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := sdk.client.Do(req)
 	if err != nil {
 		return err
 	}
