@@ -47,6 +47,8 @@ import (
 
 func main() {
     evntaly := evntaly.NewEvntalySDK("YOUR_DEVELOPER_SECRET", "YOUR_PROJECT_TOKEN")
+    evntaly.SetRequestTimeout(5 * time.Second) // optional
+
     fmt.Println("Evntaly SDK initialized!")
 }
 ```
