@@ -7,8 +7,11 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"runtime"
 	"time"
 )
+
+var Version = "1.0.7"
 
 // EvntalySDK is the main struct for the Evntaly SDK.
 type EvntalySDK struct {
@@ -17,10 +20,17 @@ type EvntalySDK struct {
 	ProjectToken    string
 	TrackingEnabled bool
 	client          *http.Client
+	version         string
 }
 
 type EventUser struct {
 	ID string `json:"id"`
+}
+
+type Context struct {
+	SdkVersion      string `json:"sdkVersion"`
+	SdkRuntime      string `json:"sdkRuntime,omitempty"`
+	OperatingSystem string `json:"operatingSystem,omitempty"`
 }
 
 type Event struct {
@@ -37,6 +47,7 @@ type Event struct {
 	SessionID     string      `json:"sessionID"`
 	Feature       string      `json:"feature"`
 	Topic         string      `json:"topic"`
+	Context       *Context    `json:"context,omitempty"`
 }
 
 type User struct {
@@ -54,6 +65,7 @@ func NewEvntalySDK(developerSecret, projectToken string) *EvntalySDK {
 		ProjectToken:    projectToken,
 		TrackingEnabled: true,
 		client:          &http.Client{},
+		version:         Version,
 	}
 }
 
@@ -108,6 +120,13 @@ func (sdk *EvntalySDK) Track(event Event) error {
 	if err != nil || !canTrack {
 		fmt.Println("checkLimit returned false. Event not sent.")
 		return err
+	}
+
+	// Add context information to the event
+	event.Context = &Context{
+		SdkVersion:      sdk.version,
+		SdkRuntime:      "go" + runtime.Version(),
+		OperatingSystem: runtime.GOOS,
 	}
 
 	url := fmt.Sprintf("%s/api/v1/register/event", sdk.BaseURL)
@@ -177,4 +196,9 @@ func (sdk *EvntalySDK) DisableTracking() {
 func (sdk *EvntalySDK) EnableTracking() {
 	sdk.TrackingEnabled = true
 	fmt.Println("🟢 Tracking enabled.")
+}
+
+// SetVersion allows setting a custom SDK version
+func (sdk *EvntalySDK) SetVersion(version string) {
+	sdk.version = version
 }
