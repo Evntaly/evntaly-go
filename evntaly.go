@@ -125,7 +125,7 @@ func (sdk *EvntalySDK) Track(event Event) error {
 	// Add context information to the event
 	event.Context = &Context{
 		SdkVersion:      sdk.version,
-		SdkRuntime:      "go" + runtime.Version(),
+		SdkRuntime:      runtime.Version(),
 		OperatingSystem: runtime.GOOS,
 	}
 
