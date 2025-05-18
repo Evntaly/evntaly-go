@@ -197,8 +197,3 @@ func (sdk *EvntalySDK) EnableTracking() {
 	sdk.TrackingEnabled = true
 	fmt.Println("🟢 Tracking enabled.")
 }
-
-// SetVersion allows setting a custom SDK version
-func (sdk *EvntalySDK) SetVersion(version string) {
-	sdk.version = version
-}
